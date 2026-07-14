@@ -11,6 +11,34 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,400&family=Noto+Serif+KR:wght@300;500&family=Noto+Serif+SC:wght@300;500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+#musicBtn{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    z-index:999;
+
+    padding:12px 18px;
+    background:rgba(6,7,10,.75);
+    color:#eef0f2;
+
+    border:1px solid rgba(167,155,214,.25);
+    border-radius:999px;
+
+    backdrop-filter:blur(10px);
+
+    font-family:'IBM Plex Mono', monospace;
+    font-size:.75rem;
+    letter-spacing:.08em;
+
+    cursor:pointer;
+    transition:.3s;
+}
+
+#musicBtn:hover{
+    border-color:#a79bd6;
+    color:#fff;
+}
+  
   :root{
     --void: #06070a;
     --void-deep: #030304;
@@ -378,6 +406,29 @@ video.addEventListener("playing", () => console.log("Spielt"));
 video.addEventListener("error", (e) => console.error("Videofehler:", video.error));
 
 video.play().catch(err => console.error("Play fehlgeschlagen:", err));
+</script>
+
+<audio id="bgMusic" loop>
+    <source src="ambience.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicBtn">✦ Atmosphere </button>
+
+<script>
+const music = document.getElementById("bgMusic");
+const btn = document.getElementById("musicBtn");
+
+music.volume = 0.2;
+
+btn.addEventListener("click", async () => {
+    if (music.paused) {
+        await music.play();
+        btn.textContent = "🔇 Mute";
+    } else {
+        music.pause();
+        btn.textContent = "🔊 Atmosphere";
+    }
+});
 </script>
   
 </body>
