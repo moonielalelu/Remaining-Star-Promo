@@ -368,6 +368,17 @@
   }
   scheduleGlitch();
 </script>
+<script>
+const video = document.querySelector(".hero-media");
 
+video.addEventListener("loadedmetadata", () => console.log("Metadata geladen"));
+video.addEventListener("loadeddata", () => console.log("Video geladen"));
+video.addEventListener("canplay", () => console.log("Kann abgespielt werden"));
+video.addEventListener("playing", () => console.log("Spielt"));
+video.addEventListener("error", (e) => console.error("Videofehler:", video.error));
+
+video.play().catch(err => console.error("Play fehlgeschlagen:", err));
+</script>
+  
 </body>
 </html>
