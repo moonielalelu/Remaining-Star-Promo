@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Last Remaining Star (마지막 별 / 最后的星) — XHarmony</title>
+<meta property="og:title" content="The Last Remaining Star — XHarmony">
+<meta property="og:description" content="When every constellation fades, you're all I see. Out 31.07.">
+<meta property="og:image" content="cover.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,400&family=Noto+Serif+KR:wght@300;500&family=Noto+Serif+SC:wght@300;500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void: #06070a;
+    --void-deep: #030304;
+    --star: #eef0f2;
+    --star-dim: #9096a8;
+    --ash: #8b93a1;
+    --ash-dim: #4a5058;
+    --nebula: #a79bd6;
+    --nebula-dim: #4d4770;
+    --fracture-cyan: #3ad6d1;
+    --fracture-red: #d9425a;
+    --line: rgba(167,155,214,0.14);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--void);
+    color:var(--ash);
+    font-family:'IBM Plex Mono', monospace;
+    overflow-x:hidden;
+    min-height:100vh;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:50;
+    opacity:0.035; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:space-between;
+    overflow:hidden;
+  }
+
+  .hero-media{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    object-position:center 30%;
+    z-index:0;
+    opacity:0.85;
+  }
+  .hero-overlay{
+    position:absolute; inset:0; z-index:1;
+    background:
+      linear-gradient(to bottom, rgba(3,3,4,0.55) 0%, rgba(3,3,4,0.1) 22%, rgba(3,3,4,0.25) 55%, rgba(3,3,4,0.92) 92%),
+      radial-gradient(ellipse at center, transparent 35%, var(--void-deep) 145%);
+  }
+
+  .hero-top{
+    position:relative; z-index:2;
+    padding:5vh 6vw 0;
+    display:flex; justify-content:space-between; align-items:flex-start;
+  }
+  .mark{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:500;
+    font-size:1.1rem;
+    letter-spacing:0.06em;
+    color:var(--star);
+  }
+  .mark .mark-kr{
+    display:block;
+    font-family:'Noto Serif KR', serif;
+    font-weight:300;
+    font-size:0.6rem;
+    letter-spacing:0.3em;
+    color:var(--ash-dim);
+    margin-top:0.35rem;
+  }
+  .eyebrow-right{
+    font-size:0.62rem; letter-spacing:0.3em; text-transform:uppercase;
+    color:var(--ash-dim); text-align:right;
+  }
+
+  .hero-bottom{
+    position:relative; z-index:2;
+    padding:0 6vw 7vh;
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+  }
+
+  .titles{
+    display:flex; flex-direction:column; gap:0.35rem;
+    margin-bottom:2.2rem;
+  }
+  .title-en{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:300;
+    font-style:italic;
+    font-size:clamp(2.2rem, 6vw, 4.2rem);
+    letter-spacing:0.02em;
+    color:var(--star);
+    line-height:1.05;
+    position:relative;
+  }
+  .title-en .glitch-layer{
+    position:absolute; inset:0; pointer-events:none;
+    color:var(--fracture-cyan);
+    opacity:0;
+    clip-path:inset(0 0 0 0);
+  }
+  .title-kr, .title-cn{
+    font-weight:300;
+    letter-spacing:0.08em;
+    color:var(--star-dim);
+  }
+  .title-kr{ font-family:'Noto Serif KR', serif; font-size:clamp(0.95rem,2vw,1.2rem); opacity:0.8;}
+  .title-cn{ font-family:'Noto Serif SC', serif; font-size:clamp(0.95rem,2vw,1.2rem); opacity:0.55;}
+
+  .tagline{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic; font-weight:300;
+    font-size:clamp(1.05rem, 2.2vw, 1.35rem);
+    color:#cfd2d9;
+    max-width:32ch;
+    line-height:1.6;
+    margin-bottom:2.8rem;
+  }
+
+  /* ---------- telemetry countdown ---------- */
+  .telemetry{
+    display:flex; gap:clamp(1rem,3vw,2.2rem);
+    padding:1.4rem clamp(1.2rem,4vw,2.4rem);
+    border:1px solid var(--line);
+    background:rgba(6,7,10,0.5);
+    backdrop-filter:blur(8px);
+  }
+  .t-unit{ display:flex; flex-direction:column; align-items:center; min-width:3.4rem; }
+  .t-num{
+    font-size:clamp(1.4rem,3.6vw,2.1rem);
+    font-weight:500;
+    color:var(--star);
+    font-variant-numeric:tabular-nums;
+    letter-spacing:0.02em;
+  }
+  .t-label{
+    margin-top:0.4rem;
+    font-size:0.58rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--nebula-dim);
+  }
+  .t-sep{ color:var(--ash-dim); align-self:center; font-size:1.1rem; opacity:0.4; padding-bottom:1rem;}
+
+  .release-line{
+    margin-top:1.5rem;
+    font-size:0.62rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--ash-dim);
+  }
+  .release-line span{ color:var(--nebula); }
+
+  .scroll-cue{
+    position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
+    z-index:2;
+    width:1px; height:2.4rem;
+    background:linear-gradient(to bottom, transparent, var(--nebula-dim) 60%, transparent);
+    animation:pulse-line 2.6s ease-in-out infinite;
+  }
+  @keyframes pulse-line{ 0%,100%{opacity:0.2;} 50%{opacity:0.9;} }
+
+  /* ---------- transmission / links ---------- */
+  .transmission{
+    position:relative;
+    padding:9vh 6vw 6vh;
+    border-top:1px solid var(--line);
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .transmission-label{
+    font-size:0.62rem; letter-spacing:0.34em; text-transform:uppercase;
+    color:var(--nebula-dim); margin-bottom:1.2rem;
+  }
+  .transmission-note{
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:300;
+    font-size:clamp(1.1rem,2.4vw,1.45rem);
+    color:#dcdee4;
+    max-width:36ch; text-align:center; line-height:1.55;
+    margin-bottom:3.2rem;
+  }
+
+  .channels{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:0.9rem;
+    width:100%; max-width:640px;
+  }
+  .channel{
+    flex:1 1 220px;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1.1rem 1.4rem;
+    border:1px solid var(--line);
+    color:var(--ash);
+    text-decoration:none;
+    font-size:0.76rem;
+    letter-spacing:0.05em;
+    background:rgba(255,255,255,0.01);
+    transition:border-color 0.35s ease, color 0.35s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .channel::before{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(90deg, transparent, rgba(167,155,214,0.1), transparent);
+    transform:translateX(-100%);
+    transition:transform 0.6s ease;
+  }
+  .channel:hover{ border-color:var(--nebula-dim); color:var(--star); }
+  .channel:hover::before{ transform:translateX(100%); }
+  .channel:focus-visible{ outline:1px solid var(--nebula); outline-offset:3px; }
+  .channel .arrow{ color:var(--nebula-dim); transition:transform 0.35s ease; }
+  .channel:hover .arrow{ transform:translateX(3px); color:var(--nebula); }
+
+  /* ---------- closing lyric ---------- */
+  .closing{
+    padding:7vh 6vw;
+    text-align:center;
+    border-top:1px solid var(--line);
+  }
+  .closing p{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic; font-weight:300;
+    font-size:clamp(1rem,2.2vw,1.3rem);
+    color:var(--star-dim);
+    line-height:2;
+  }
+  .closing .cn{ font-family:'Noto Serif SC', serif; font-style:normal; opacity:0.65; }
+  .closing .kr{ font-family:'Noto Serif KR', serif; font-style:normal; opacity:0.8; }
+
+  footer{
+    padding:2.6rem 6vw 3.2rem;
+    text-align:center;
+    font-size:0.6rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--ash-dim);
+  }
+  footer .crossies{ color:var(--nebula-dim); }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<section class="hero">
+  <video class="hero-media" autoplay muted loop playsinline poster="cover.png">
+    <source src="loop.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-top">
+    <div class="mark">X · HARMONY<span class="mark-kr">엑스 하모니</span></div>
+    <div class="eyebrow-right">Signal incoming</div>
+  </div>
+
+  <div class="hero-bottom">
+    <div class="titles">
+      <div class="title-en" id="glitchTitle">
+        The Last Remaining Star
+        <span class="glitch-layer" id="glitchLayer">The Last Remaining Star</span>
+      </div>
+      <div class="title-kr">마지막 별</div>
+      <div class="title-cn">最后的星</div>
+    </div>
+
+    <p class="tagline">"When every constellation fades — <span style="color:var(--star);">you're all I see.</span>"</p>
+
+    <div class="telemetry" role="timer" aria-live="off" aria-label="Countdown to release">
+      <div class="t-unit"><span class="t-num" id="dd">00</span><span class="t-label">Days</span></div>
+      <span class="t-sep">:</span>
+      <div class="t-unit"><span class="t-num" id="hh">00</span><span class="t-label">Hrs</span></div>
+      <span class="t-sep">:</span>
+      <div class="t-unit"><span class="t-num" id="mm">00</span><span class="t-label">Min</span></div>
+      <span class="t-sep">:</span>
+      <div class="t-unit"><span class="t-num" id="ss">00</span><span class="t-label">Sec</span></div>
+    </div>
+
+    <p class="release-line">Final transmission <span>31.07 · 00:00</span></p>
+  </div>
+
+  <div class="scroll-cue"></div>
+</section>
+
+<section class="transmission">
+  <div class="transmission-label">Receiver channels</div>
+  <p class="transmission-note">Tune in wherever you listen. The signal reaches every frequency at once.</p>
+
+  <div class="channels">
+    <a class="channel" href="https://open.spotify.com/intl-de/artist/13nWsJLBfziap4JWzTX7gT?si=l5iwKjuETGemsYJPGm-dCA" target="_blank" rel="noopener">Spotify <span class="arrow">→</span></a>
+    <a class="channel" href="https://music.apple.com/us/album/the-last-remaining-star-%EB%A7%88%EC%A7%80%EB%A7%89-%EB%B3%84-single/6790217878" target="_blank" rel="noopener">Apple Music <span class="arrow">→</span></a>
+    <a class="channel" href="https://youtube.com/channel/UCHU8SJnX_bgb5ox1axjQNsw?si=D2m-fiE5RHHEvHHn" target="_blank" rel="noopener">YouTube <span class="arrow">→</span></a>
+    <a class="channel" href="https://distrokid.com/hyperfollow/xharmony/the-last-remaining-star--?ref=release" target="_blank" rel="noopener">Hyperfollow <span class="arrow">→</span></a>
+  </div>
+</section>
+
+<section class="closing">
+  <p>No stars. No sky. No time.<br>
+  너만 남아 · <span class="cn">只剩你</span><br>
+  <span class="kr">Only you remain.</span></p>
+</section>
+
+<footer>
+  XHarmony — for the <span class="crossies">CROSSIES</span>
+</footer>
+
+<script>
+  // ---------- countdown ----------
+  const target = new Date("2026-07-31T00:00:00");
+  const dd = document.getElementById('dd');
+  const hh = document.getElementById('hh');
+  const mm = document.getElementById('mm');
+  const ss = document.getElementById('ss');
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function tick(){
+    const now = new Date();
+    let diff = target - now;
+    if(diff <= 0){
+      dd.textContent = hh.textContent = mm.textContent = ss.textContent = '00';
+      return;
+    }
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    dd.textContent = pad(days);
+    hh.textContent = pad(hours);
+    mm.textContent = pad(mins);
+    ss.textContent = pad(secs);
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // ---------- title glitch (rare, quiet) ----------
+  const glitchLayer = document.getElementById('glitchLayer');
+  function scheduleGlitch(){
+    const delay = 4000 + Math.random()*6000;
+    setTimeout(() => {
+      glitchLayer.style.transition = 'none';
+      glitchLayer.style.opacity = '0.5';
+      glitchLayer.style.transform = `translate(${(Math.random()*4-2).toFixed(1)}px, 0)`;
+      glitchLayer.style.clipPath = `inset(${Math.random()*60}% 0 ${Math.random()*40}% 0)`;
+      setTimeout(() => {
+        glitchLayer.style.transition = 'opacity 0.25s ease';
+        glitchLayer.style.opacity = '0';
+      }, 90);
+      scheduleGlitch();
+    }, delay);
+  }
+  scheduleGlitch();
+</script>
+
+</body>
+</html>
