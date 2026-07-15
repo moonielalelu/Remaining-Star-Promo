@@ -419,13 +419,13 @@ btn.addEventListener("click", async () => {
         }
     } else {
         music.pause();
-        btn.textContent = "🔊 Atmosphere";
+        btn.textContent = "✦ Atmosphere";
     }
 });
 
 // Falls die Musik auf andere Weise pausiert oder endet:
 music.addEventListener("pause", () => {
-    btn.textContent = "🔊 Atmosphere";
+    btn.textContent = "✦ Atmosphere";
 });
 
 music.addEventListener("play", () => {
