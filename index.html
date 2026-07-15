@@ -422,12 +422,25 @@ music.volume = 0.2;
 
 btn.addEventListener("click", async () => {
     if (music.paused) {
-        await music.play();
-        btn.textContent = "🔇 Mute";
+        try {
+            await music.play();
+            btn.textContent = "🔇 Mute";
+        } catch (err) {
+            console.error(err);
+        }
     } else {
         music.pause();
         btn.textContent = "🔊 Atmosphere";
     }
+});
+
+// Falls die Musik auf andere Weise pausiert oder endet:
+music.addEventListener("pause", () => {
+    btn.textContent = "🔊 Atmosphere";
+});
+
+music.addEventListener("play", () => {
+    btn.textContent = "🔇 Mute";
 });
 </script>
   
