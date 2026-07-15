@@ -88,28 +88,44 @@
     opacity:0.85;
   }
  .hero-overlay{
-  position:absolute;
-  inset:0;
-  z-index:1;
+    position:absolute;
+    inset:0;
+    z-index:1;
 
-  background:
-    /* links + rechts */
-    linear-gradient(
-      to right,
-      rgba(3,3,4,.22) 0%,
-      transparent 10%,
-      transparent 90%,
-      rgba(3,3,4,.22) 100%
+    background:
+
+    /* linker Kontrast für Logo */
+    radial-gradient(
+        circle at 0% 10%,
+        rgba(3,3,4,.38) 0%,
+        rgba(3,3,4,.20) 18%,
+        transparent 42%
     ),
 
-    /* oben + unten */
-    linear-gradient(
-      to bottom,
-      rgba(3,3,4,0.55) 0%,
-      rgba(3,3,4,0.1) 22%,
-      rgba(3,3,4,0.25) 55%,
-      rgba(3,3,4,0.92) 92%
+    /* rechter Kontrast für Signal */
+    radial-gradient(
+        circle at 100% 10%,
+        rgba(3,3,4,.38) 0%,
+        rgba(3,3,4,.20) 18%,
+        transparent 42%
     ),
+
+    /* dein bisheriger Verlauf */
+    linear-gradient(
+        to bottom,
+        rgba(3,3,4,.50) 0%,
+        rgba(3,3,4,.10) 20%,
+        rgba(3,3,4,.22) 55%,
+        rgba(3,3,4,.92) 92%
+    ),
+
+    /* leichte Gesamtvignette */
+    radial-gradient(
+        ellipse at center,
+        transparent 35%,
+        var(--void-deep) 145%
+    );
+}
 
     /* Vignette */
     radial-gradient(
