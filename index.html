@@ -140,19 +140,22 @@
     line-height:1.05;
     position:relative;
   }
-  .title-en .glitch-layer{
-    position:absolute; inset:0; pointer-events:none;
-    color:var(--fracture-cyan);
-    opacity:0;
-    clip-path:inset(0 0 0 0);
+  .subtitle-line{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:0.9rem;
+    margin-top:1.1rem;
   }
   .title-kr, .title-cn{
-    font-weight:300;
-    letter-spacing:0.08em;
+    font-weight:400;
+    letter-spacing:0.1em;
     color:var(--star-dim);
+    text-shadow: 0 2px 14px rgba(3,3,4,0.9), 0 0 30px rgba(3,3,4,0.6);
   }
-  .title-kr{ font-family:'Noto Serif KR', serif; font-size:clamp(0.95rem,2vw,1.2rem); opacity:0.8;}
-  .title-cn{ font-family:'Noto Serif SC', serif; font-size:clamp(0.95rem,2vw,1.2rem); opacity:0.55;}
+  .title-kr{ font-family:'Noto Serif KR', serif; font-size:clamp(0.95rem,2vw,1.2rem); opacity:0.95;}
+  .title-cn{ font-family:'Noto Serif SC', serif; font-size:clamp(0.95rem,2vw,1.2rem); opacity:0.7;}
+  .subtitle-dot{ color:var(--nebula-dim); opacity:0.8; font-size:0.8rem; }
 
   .tagline{
     font-family:'Cormorant Garamond', serif;
@@ -301,12 +304,14 @@
 
   <div class="hero-bottom">
     <div class="titles">
-      <div class="title-en" id="glitchTitle">
+      <div class="title-en">
         The Last Remaining Star
-        <span class="glitch-layer" id="glitchLayer">The Last Remaining Star</span>
       </div>
-      <div class="title-kr">마지막 별</div>
-      <div class="title-cn">最后的星</div>
+      <div class="subtitle-line">
+        <span class="title-kr">마지막 별</span>
+        <span class="subtitle-dot">·</span>
+        <span class="title-cn">最后的星</span>
+      </div>
     </div>
 
     <p class="tagline">"When every constellation fades — <span style="color:var(--star);">you're all I see.</span>"</p>
@@ -378,23 +383,7 @@
   tick();
   setInterval(tick, 1000);
 
-  // ---------- title glitch (rare, quiet) ----------
-  const glitchLayer = document.getElementById('glitchLayer');
-  function scheduleGlitch(){
-    const delay = 4000 + Math.random()*6000;
-    setTimeout(() => {
-      glitchLayer.style.transition = 'none';
-      glitchLayer.style.opacity = '0.5';
-      glitchLayer.style.transform = `translate(${(Math.random()*4-2).toFixed(1)}px, 0)`;
-      glitchLayer.style.clipPath = `inset(${Math.random()*60}% 0 ${Math.random()*40}% 0)`;
-      setTimeout(() => {
-        glitchLayer.style.transition = 'opacity 0.25s ease';
-        glitchLayer.style.opacity = '0';
-      }, 90);
-      scheduleGlitch();
-    }, delay);
-  }
-  scheduleGlitch();
+
 </script>
 <script>
 const video = document.querySelector(".hero-media");
