@@ -17,6 +17,9 @@
     bottom:24px;
     z-index:999;
 
+    min-width:140px;
+    text-align:center;
+
     padding:12px 18px;
     background:rgba(6,7,10,.75);
     color:#eef0f2;
@@ -87,50 +90,18 @@
     z-index:0;
     opacity:0.85;
   }
-.hero-overlay{
-    position:absolute;
-    inset:0;
-    z-index:1;
-
+  .hero-overlay{
+    position:absolute; inset:0; z-index:1;
     background:
-
-    /* linker Kontrast für Logo */
-    radial-gradient(
-        circle at 0% 10%,
-        rgba(3,3,4,.38) 0%,
-        rgba(3,3,4,.20) 18%,
-        transparent 42%
-    ),
-
-    /* rechter Kontrast für Signal */
-    radial-gradient(
-        circle at 100% 10%,
-        rgba(3,3,4,.38) 0%,
-        rgba(3,3,4,.20) 18%,
-        transparent 42%
-    ),
-
-    /* Verlauf nach unten */
-    linear-gradient(
-        to bottom,
-        rgba(3,3,4,.50) 0%,
-        rgba(3,3,4,.10) 20%,
-        rgba(3,3,4,.22) 55%,
-        rgba(3,3,4,.92) 92%
-    ),
-
-    /* Gesamtvignette */
-    radial-gradient(
-        ellipse at center,
-        transparent 35%,
-        var(--void-deep) 145%
-    );
-}
+      linear-gradient(to bottom, rgba(3,3,4,0.55) 0%, rgba(3,3,4,0.1) 22%, rgba(3,3,4,0.25) 55%, rgba(3,3,4,0.92) 92%),
+      radial-gradient(ellipse at center, transparent 35%, var(--void-deep) 145%);
+  }
 
   .hero-top{
     position:relative; z-index:2;
-    padding:5vh 6vw 0;
+    padding:5vh 6vw 3vh;
     display:flex; justify-content:space-between; align-items:flex-start;
+    background:linear-gradient(to bottom, rgba(3,3,4,0.7) 0%, rgba(3,3,4,0.35) 60%, rgba(3,3,4,0) 100%);
   }
   .mark{
     font-family:'Cormorant Garamond', serif;
@@ -174,21 +145,26 @@
     position:relative;
   }
   .subtitle-line{
-    display:flex;
+    display:inline-flex;
     align-items:center;
     justify-content:center;
     gap:0.9rem;
     margin-top:1.1rem;
+    align-self:center;
+    width:fit-content;
+    padding:0.5rem 1.2rem;
+    border-radius:999px;
+    background:rgba(6,7,10,0.4);
+    backdrop-filter:blur(10px);
   }
   .title-kr, .title-cn{
     font-weight:400;
     letter-spacing:0.1em;
-    color:var(--star-dim);
-    text-shadow: 0 2px 14px rgba(3,3,4,0.9), 0 0 30px rgba(3,3,4,0.6);
+    color:var(--star);
   }
   .title-kr{ font-family:'Noto Serif KR', serif; font-size:clamp(0.95rem,2vw,1.2rem); opacity:0.95;}
-  .title-cn{ font-family:'Noto Serif SC', serif; font-size:clamp(0.95rem,2vw,1.2rem); opacity:0.7;}
-  .subtitle-dot{ color:var(--nebula-dim); opacity:0.8; font-size:0.8rem; }
+  .title-cn{ font-family:'Noto Serif SC', serif; font-size:clamp(0.95rem,2vw,1.2rem); opacity:0.8;}
+  .subtitle-dot{ color:var(--nebula); opacity:0.9; font-size:0.8rem; }
 
   .tagline{
     font-family:'Cormorant Garamond', serif;
@@ -293,6 +269,18 @@
   .channel .arrow{ color:var(--nebula-dim); transition:transform 0.35s ease; }
   .channel:hover .arrow{ transform:translateX(3px); color:var(--nebula); }
 
+  .channel-primary{
+    border-color:var(--nebula);
+    color:var(--star);
+    box-shadow:0 0 0 1px rgba(167,155,214,0.25), 0 0 18px rgba(167,155,214,0.25);
+    animation:pulse-glow 2.8s ease-in-out infinite;
+  }
+  .channel-primary .arrow{ color:var(--nebula); }
+  @keyframes pulse-glow{
+    0%,100%{ box-shadow:0 0 0 1px rgba(167,155,214,0.25), 0 0 18px rgba(167,155,214,0.25); }
+    50%{ box-shadow:0 0 0 1px rgba(167,155,214,0.45), 0 0 30px rgba(167,155,214,0.45); }
+  }
+
   /* ---------- closing lyric ---------- */
   .closing{
     padding:7vh 6vw;
@@ -370,10 +358,10 @@
   <p class="transmission-note">Tune in wherever you listen. The signal reaches every frequency at once.</p>
 
   <div class="channels">
-    <a class="channel" href="https://open.spotify.com/intl-de/artist/13nWsJLBfziap4JWzTX7gT?si=l5iwKjuETGemsYJPGm-dCA" target="_blank" rel="noopener">Spotify <span class="arrow">→</span></a>
-    <a class="channel" href="https://music.apple.com/us/album/the-last-remaining-star-%EB%A7%88%EC%A7%80%EB%A7%89-%EB%B3%84-single/6790217878" target="_blank" rel="noopener">Apple Music <span class="arrow">→</span></a>
-    <a class="channel" href="https://youtube.com/channel/UCHU8SJnX_bgb5ox1axjQNsw?si=D2m-fiE5RHHEvHHn" target="_blank" rel="noopener">YouTube <span class="arrow">→</span></a>
-    <a class="channel" href="https://distrokid.com/hyperfollow/xharmony/the-last-remaining-star--?ref=release" target="_blank" rel="noopener">Hyperfollow <span class="arrow">→</span></a>
+    <a class="channel" href="https://open.spotify.com/intl-de/artist/13nWsJLBfziap4JWzTX7gT?si=l5iwKjuETGemsYJPGm-dCA" target="_blank" rel="noopener noreferrer">Spotify <span class="arrow">→</span></a>
+    <a class="channel" href="https://music.apple.com/us/album/the-last-remaining-star-%EB%A7%88%EC%A7%80%EB%A7%89-%EB%B3%84-single/6790217878" target="_blank" rel="noopener noreferrer">Apple Music <span class="arrow">→</span></a>
+    <a class="channel" href="https://youtube.com/channel/UCHU8SJnX_bgb5ox1axjQNsw?si=D2m-fiE5RHHEvHHn" target="_blank" rel="noopener noreferrer">YouTube <span class="arrow">→</span></a>
+    <a class="channel channel-primary" href="https://distrokid.com/hyperfollow/xharmony/the-last-remaining-star--?ref=release" target="_blank" rel="noopener noreferrer">Hyperfollow <span class="arrow">→</span></a>
   </div>
 </section>
 
@@ -397,11 +385,13 @@
 
   function pad(n){ return String(n).padStart(2,'0'); }
 
+  let timerId;
   function tick(){
     const now = new Date();
     let diff = target - now;
     if(diff <= 0){
       dd.textContent = hh.textContent = mm.textContent = ss.textContent = '00';
+      clearInterval(timerId);
       return;
     }
     const days = Math.floor(diff / 86400000);
@@ -414,20 +404,13 @@
     ss.textContent = pad(secs);
   }
   tick();
-  setInterval(tick, 1000);
+  timerId = setInterval(tick, 1000);
 
 
 </script>
 <script>
 const video = document.querySelector(".hero-media");
-
-video.addEventListener("loadedmetadata", () => console.log("Metadata geladen"));
-video.addEventListener("loadeddata", () => console.log("Video geladen"));
-video.addEventListener("canplay", () => console.log("Kann abgespielt werden"));
-video.addEventListener("playing", () => console.log("Spielt"));
-video.addEventListener("error", (e) => console.error("Videofehler:", video.error));
-
-video.play().catch(err => console.error("Play fehlgeschlagen:", err));
+video.play().catch(() => {});
 </script>
 
 <audio id="bgMusic" loop>
@@ -452,13 +435,13 @@ btn.addEventListener("click", async () => {
         }
     } else {
         music.pause();
-        btn.textContent = "✦ Atmosphere";
+        btn.textContent = "🔊 Atmosphere";
     }
 });
 
 // Falls die Musik auf andere Weise pausiert oder endet:
 music.addEventListener("pause", () => {
-    btn.textContent = "✦ Atmosphere";
+    btn.textContent = "🔊 Atmosphere";
 });
 
 music.addEventListener("play", () => {
